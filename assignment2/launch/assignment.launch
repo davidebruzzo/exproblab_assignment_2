@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-	
+
 	  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
@@ -19,14 +19,14 @@
   <arg name="respawn_gazebo" default="false"/>
   <arg name="use_clock_frequency" default="false"/>
   <arg name="pub_clock_frequency" default="100"/>
-  
+
     <!-- robot model -->
   <arg name="model" default="$(find assignment2)/urdf/prova.xacro" />
-  
+
     <!-- Load the URDF into the ROS Parameter Server -->
-  <param name="robot_description" 
+  <param name="robot_description"
 	 command="$(find xacro)/xacro --inorder $(arg model)" />
-  
+
   <!-- set use_sim_time flag -->
   <param name="/use_sim_time" value="$(arg use_sim_time)"/>
 
@@ -46,21 +46,21 @@
   </group>
   <node name="gazebo" pkg="gazebo_ros" type="$(arg script_type)" respawn="$(arg respawn_gazebo)" output="screen"
 	args="$(arg command_arg1) $(arg command_arg2) $(arg command_arg3) -e $(arg physics) $(arg extra_gazebo_args) $(arg world_name)" />
-	
+
   <!-- start gazebo client -->
   <group if="$(arg gui)">
     <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
   </group>
-	
-  <!-- Start Rviz -->  
+
+  <!-- Start Rviz -->
    <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" ></node>
-   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> 
+   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find assignment2)/config/robot_config.rviz" />
-   
+
  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-	args="-urdf -model robot1 -param robot_description -x -6.0 -y 11.0 -z 0.05 -Y 3.14"/> 
-	
+	args="-urdf -model robot1 -param robot_description -x -6.0 -y 11.0 -z 0.05 -Y 3.14"/>
+
 	 <!-- spawn the manipulator's joints controllers -->
   <rosparam file="$(find assignment2)/config/motors_config.yaml" command="load" ns="/robot" />
 
@@ -71,7 +71,10 @@
        joint3_position_controller
        --shutdown-timeout 3">
   </node>
-    
+   
    <node name="marker_server" pkg="assignment2" type="marker_server" />
+
+	 <node name="mave_prova" pkg="assignment2" type="move_prova" launch-prefix="xterm -e"
+	 output = "screen"/>
 
 </launch>

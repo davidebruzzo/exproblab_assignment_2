@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-
-<include file="$(find assignment2)/launch/assignment.launch" />
-<include file="$(find assignment2)/launch/launch.launch" />
-
-</launch>

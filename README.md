@@ -57,12 +57,12 @@ The simulation environment in this case consists of a .world file in which there
 <p>
 
 As you can see, the diagram is made up of various nodes:
-- Armor service, node that deals with interacting with the ontology, exchanging information with it and modifying it through the appropriate instructions to keep it updated
-- Battery, a node that simulates battery life and its subsequent recharge
-- Detection_node, node that moves the robot arm to identify all the markers, through the use of computer vision algorithms. Once obtained the marker ids are sent to the server. The response is taken and sent to the state machine helper as a message.
-- Marker server, node that implements a server that provides a contextual response to a request containing the ID of an aruco marker, with information about the room.
-- Gazebo, a simulation environment that allows the robot to simulate camera vision, move through Path planning algorithms and obtain information on the positions and speeds of the robot's components.
-- Assignment_fsm, node that implements the finite state machine, composed of the same states as the one of the last assignment. It takes care of calling the right functions from the helper interface.
+- **Armor service**, node that deals with interacting with the ontology, exchanging information with it and modifying it through the appropriate instructions to keep it updated
+- **Battery**, a node that simulates battery life and its subsequent recharge
+- **Detection_node**, node that moves the robot arm to identify all the markers, through the use of computer vision algorithms. Once obtained the marker ids are sent to the server. The response is taken and sent to the state machine helper as a message.
+- **Marker server**, node that implements a server that provides a contextual response to a request containing the ID of an aruco marker, with information about the room.
+- **Gazebo**, a simulation environment that allows the robot to simulate camera vision, move through Path planning algorithms and obtain information on the positions and speeds of the robot's components.
+- **Assignment_fsm**, node that implements the finite state machine, composed of the same states as the one of the last assignment. It takes care of calling the right functions from the helper interface.
 
   #### Ros messages and parameters
   

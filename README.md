@@ -113,6 +113,8 @@ The finite state machine then determines a target location among the sites that 
 Following that, a request with the desired location's coordinates is sent to the move base action server.
   The fsm node enters in a loop control exited once after the robot has arrived at the desired place, and it changes the robot's location and time stamp.
 Finally, the location's time-stamp is updated after the exploration of the site, which involves manipulating the robot's arm to scan the entire area with the camera.
+
+**errata corridge: there's a missing arow for room info to FSM**
  
   
   ### States diagram

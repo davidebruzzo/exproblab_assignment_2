@@ -155,10 +155,10 @@ Then it's also needed the ```xterm``` package, by typing this in shell:
   sudo apt-get -y install xterm
 ```
 But you have also to clone:
-    - [Slam package](https://github.com/CarmineD8/SLAM_packages)
-    - [Planning](https://github.com/CarmineD8/planning)
-    - [Aruco](https://github.com/CarmineD8/aruco_ros):
-      - Copy the models folder from the aruco ros package to the ```/root/.gazebo/models``` folder so that the markers may subsequently be loaded correctly in the robotic simulation.
+- [Slam package](https://github.com/CarmineD8/SLAM_packages)
+- [Planning](https://github.com/CarmineD8/planning)
+- [Aruco](https://github.com/CarmineD8/aruco_ros):
+	- Copy the models folder from the aruco ros package to the ```/root/.gazebo/models``` folder so that the markers may subsequently be loaded correctly in the robotic simulation.
 
 Before launching the .launch file, you need to have a folder (*topological_map*) in your ros workspace to retreive this path variable:
 

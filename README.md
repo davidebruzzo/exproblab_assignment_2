@@ -205,8 +205,12 @@ Another one can be the urgency threshold that is set by 7 seconds, this makes pr
 	  
 ## Improvements
 Some of the potential upgrades only entail addressing the system's flaws.
+	  
 An improvement could be, if the robot had to calculate the course, it would have to do it by examining all potential routes and selecting the best one to prevent wasting time with unnecessary movements and battery power.
-By taking into account a precise model of a battery, for instance, both the discharge and recharge operations could be done in a more realistic way. Additionally, the most urgent place from a list of all the urgent locations (including those that are not close to the robot position) could be chosen as the target at the end of each cycle. 
+	  
+By taking into account a precise model of a battery, for instance, both the discharge and recharge operations could be done in a more realistic way.
+	  
+	  Additionally, the most urgent place from a list of all the urgent locations (including those that are not close to the robot position) could be chosen as the target at the end of each cycle. 
 To increase the number of markers that can be detected in terms of marker detection, a more thorough method of scanning the robot's surrounds may be used.
 
 Another one could be the implement of errors and fault management and also making the robot remember a route from each place to the charging room would be an enhancement that would prevent it from having to choose randomly to get to a destination in the event of a low charge and would therefore save time.

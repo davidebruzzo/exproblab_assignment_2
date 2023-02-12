@@ -184,4 +184,29 @@ Now you can use the following commands to launch the simulation:
     	 roslaunch assignment2 final.launch
      ```
 	   
-    ## Video demo
+## Video demo
+	  
+METTI VIDEOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+	  
+## Working hypothesis and system feature
+	  
+### System's hypothesis
+
+- Only nearby urgent locations to the one it is in can be detected by the robot.
+- The Recharging Room (E), is where the robot starts.
+- Robot first determines its current location and then the other ones that are reachable. Then it takes the urgent ones and makes a random selection from a list of both reachable and urgent.
+- The robot is also presumptively autonomous for random amount of time, from 400 to 450 seconds before requiring recharging. 
+- When robot is in E it randomly waits again in the range of seconds (80, 100) to simulate the recharging.
+	  
+### System's limitations
+The first limitation that I found was due to the dimension of the map, since it has only 2 corridors when the rooms are not urgent the robots could ping-pong between the two corridor.
+
+Another one can be the urgency threshold that is set by 7 seconds, this makes propably robot always visit only the two room on right or left when enter in the first one of these two.
+	  
+## Improvements
+Some of the potential upgrades only entail addressing the system's flaws.
+An improvement could be, if the robot had to calculate the course, it would have to do it by examining all potential routes and selecting the best one to prevent wasting time with unnecessary movements and battery power.
+By taking into account a precise model of a battery, for instance, both the discharge and recharge operations could be done in a more realistic way. Additionally, the most urgent place from a list of all the urgent locations (including those that are not close to the robot position) could be chosen as the target at the end of each cycle. 
+To increase the number of markers that can be detected in terms of marker detection, a more thorough method of scanning the robot's surrounds may be used.
+
+Another one could be the implement of errors and fault management and also making the robot remember a route from each place to the charging room would be an enhancement that would prevent it from having to choose randomly to get to a destination in the event of a low charge and would therefore save time.

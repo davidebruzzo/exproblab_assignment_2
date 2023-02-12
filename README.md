@@ -106,13 +106,14 @@ As you can see, the diagram is made up of various nodes:
 <img src="https://github.com/davidebruzzo/exproblab_assignment_2/blob/main/imgs/sequence diagram.png" width="800" />
 <p> 
   
-  It demonstrates that the finite state machine node, which is expected given that it is the hub that calls the other components, and the battery node, which continuously monitors the battery level, are the nodes that are always active.
+  It demonstrates that the finite state machine node, which is expected given that it is the hub that calls the other components, and the battery node, which continuously monitors the battery level, are the nodes that are always active.  In addition, the battery node runs on a separate thread. It publishes a boolean value when the robot has low battery, it returns to FSM to recharge the robot.
  
   As seen in the image, the ```detection_node``` regulates the joints of the arm to enable the camera to detect all of the markers that hold environmental data. By calling the aRMOR server, it then creates the environment using the information that was retrieved.
 The finite state machine then determines a target location among the sites that the robot may access.
 Following that, a request with the desired location's coordinates is sent to the move base action server.
   The fsm node enters in a loop control exited once after the robot has arrived at the desired place, and it changes the robot's location and time stamp.
 Finally, the location's time-stamp is updated after the exploration of the site, which involves manipulating the robot's arm to scan the entire area with the camera.
+ 
   
   ### States diagram
 
@@ -140,5 +141,47 @@ and the result will be this:
   <p>
    
    Where you can see aswell the recursive ones.
+    
+    ## Installation and running procedure
    
-  
+ For installing this repository:
+  - ```Git clone``` into your ROS workspace.
+  - Run ```chmod +x``` for every file inside the [script](https://github.com/davidebruzzo/exproblab_assignment_2/tree/main/scripts) folder.
+  - Run ``` catkin_make``` to build the workspace.
+    
+Then it's also needed the ```xterm``` package, by typing this in shell:
+```bash 
+  sudo apt-get update
+  sudo apt-get -y install xterm
+```
+But you have also to clone:
+    - [Slam package](https://github.com/CarmineD8/SLAM_packages)
+    - [Planning](https://github.com/CarmineD8/planning)
+    - [Aruco](https://github.com/CarmineD8/aruco_ros):
+      - Copy the models folder from the aruco ros package to the ```/root/.gazebo/models``` folder so that the markers may subsequently be loaded correctly in the robotic simulation.
+
+Before launching the .launch file, you need to have a folder (*topological_map*) in your ros workspace to retreive this path variable:
+
+```python 
+  path = '/root/ros_ws/src/topological_map/'
+```
+And the file .owl *topological_map.owl* in this directory, in order to make possible to perform this instruction, which is automathically done by ```LoadOntology()``` function:
+
+```python 
+  # Initializing with buffered manipulation and reasoning
+  client.utils.load_ref_from_file(path + "topological_map.owl", "http://bnc/exp-rob-lab/2022-23", True, "PELLET", True, False)
+```
+
+Now you can use the following commands to launch the simulation:
+  - On a terminal:
+    ```bash 
+      roscore &
+      rosrun armor execute it.emarolab.armor.ARMORMainService
+    ```
+    
+   - On another terminal:
+     ```bash 
+    	 roslaunch assignment2 final.launch
+     ```
+	   
+    ## Video demo

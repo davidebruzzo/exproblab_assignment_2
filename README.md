@@ -114,7 +114,6 @@ Following that, a request with the desired location's coordinates is sent to the
   The fsm node enters in a loop control exited once after the robot has arrived at the desired place, and it changes the robot's location and time stamp.
 Finally, the location's time-stamp is updated after the exploration of the site, which involves manipulating the robot's arm to scan the entire area with the camera.
 
-**errata corridge: there's a missing arrow for room info to FSM**
  
   
   ### States diagram
@@ -188,7 +187,11 @@ Now you can use the following commands to launch the simulation:
 	   
 ## Video demo
 	  
-METTI VIDEOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+
+
+https://user-images.githubusercontent.com/62437632/218341115-4758d78a-fd12-4ff8-9e3b-0d5b40699fcb.mp4
+
+
 	  
 ## Working hypothesis and system feature
 	  

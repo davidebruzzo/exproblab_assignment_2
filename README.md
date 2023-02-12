@@ -41,19 +41,19 @@ The robot’s objective is to visit the different locations and stay there for s
 ### Environment
 
 <p align="center">
-<img src="https://github.com/davidebruzzo/exproblab_assignment_2/blob/main/imgs/ambiente.png" width="300" />
+<img src="https://github.com/davidebruzzo/exproblab_assignment_2/blob/main/imgs/ambiente.png" width="500" />
 <p>
 The simulation environment in this case consists of a .world file in which there is a map that imitates the composition of an environment similar to the one found in the ontology. The robot, as per specifications, must be at the requested coordinates. These place it in a room that is not represented within the ontology because it is the one containing the aruco markers. These markers contain information about the various rooms and it is the robot's job to recognize them in order to build the ontology. It is important to note that I have changed the background color of the boxes on which the markers rest. This was made necessary by the robot's difficulty in recognizing and identifying the markers with a gray background.
 
 <p align="center">
-<img src="https://github.com/davidebruzzo/exproblab_assignment_2/blob/main/imgs/inizio stanza.png" width="300" />
+<img src="https://github.com/davidebruzzo/exproblab_assignment_2/blob/main/imgs/inizio stanza.png" width="700" />
 <p>
 
 ## Software architecture
 
 ### Component diagram
 <p align="center">
-<img src="https://github.com/davidebruzzo/exproblab_assignment_2/blob/main/imgs/component.png" width="300" />
+<img src="https://github.com/davidebruzzo/exproblab_assignment_2/blob/main/imgs/component.png" width="800" />
 <p>
 
 As you can see, the diagram is made up of various nodes:
@@ -63,3 +63,82 @@ As you can see, the diagram is made up of various nodes:
 - Marker server, node that implements a server that provides a contextual response to a request containing the ID of an aruco marker, with information about the room.
 - Gazebo, a simulation environment that allows the robot to simulate camera vision, move through Path planning algorithms and obtain information on the positions and speeds of the robot's components.
 - Assignment_fsm, node that implements the finite state machine, composed of the same states as the one of the last assignment. It takes care of calling the right functions from the helper interface.
+
+  #### Ros messages and parameters
+  
+  To link all the nodes and make them communicating each other have been used some services and messages:
+  
+  - Messages:
+  
+    - InfoRoom.msg:
+        ```cpp
+        string room
+        float32 x
+        float32 y
+        RoomConnection[] connections
+        ``` 
+     
+     - RoomConnection:
+        ```cpp
+        string connected_to
+        string trhough_door
+        ```
+  - Service:
+  
+    - RoomInformation.srv:
+       ```cpp
+        int32 id
+        ---
+        string room
+        float32 x
+        float32 y
+        RoomConnection[] connections
+       ```
+  ### Sequence diagram
+  
+  The software architecture's sequence diagram, which emphasizes the timing of communication between nodes, is here below displayed. 
+  If no battery low signal is sent, it specifically shows the communication and computation flow beginning at the moment the architecture is launched. 
+  The state machine node receives this message and this causes the recharge mechanism to begin.
+  The recharge method is quite similar to the one that is described immediately following the formation of the environment in the sequence diagram. 
+  The robot just waits for the battery to recharge for a predetermined amount of time once it has arrived in the charging chamber, which is the only significant change.
+  
+ <p align="center">
+<img src="https://github.com/davidebruzzo/exproblab_assignment_2/blob/main/imgs/sequence diagram.png" width="800" />
+<p> 
+  
+  It demonstrates that the finite state machine node, which is expected given that it is the hub that calls the other components, and the battery node, which continuously monitors the battery level, are the nodes that are always active.
+ 
+  As seen in the image, the ```detection_node``` regulates the joints of the arm to enable the camera to detect all of the markers that hold environmental data. By calling the aRMOR server, it then creates the environment using the information that was retrieved.
+The finite state machine then determines a target location among the sites that the robot may access.
+Following that, a request with the desired location's coordinates is sent to the move base action server.
+  The fsm node enters in a loop control exited once after the robot has arrived at the desired place, and it changes the robot's location and time stamp.
+Finally, the location's time-stamp is updated after the exploration of the site, which involves manipulating the robot's arm to scan the entire area with the camera.
+  
+  ### States diagram
+
+The software that implements the *FSM* is made of 4 states:
+- **WaitForOntology**;
+- **Recharging**;
+- **Plan_To_Urgent**;
+- **Visit_Room**.
+
+ <p align="center">
+  <img src="https://github.com/davidebruzzo/assignment_FiniteStateMachine/blob/main/images/statemachine.jpg" width="600" />
+  <p>
+  
+  The yellow arrows represent the recursive iteration, they are not written in order to simplify the graph.
+  
+  The equivalent graph can be obtained by writing these commands on the bash:
+  
+  ```bash
+$ rosrun smach_viewer smach_viewer.py
+```
+and the result will be this:
+
+<p align="center">
+  <img src="https://github.com/davidebruzzo/assignment_FiniteStateMachine/blob/main/images/smach.png" width="300" />
+  <p>
+   
+   Where you can see aswell the recursive ones.
+   
+  
